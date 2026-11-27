@@ -11,11 +11,23 @@ function setMenu(open) {
 menu.addEventListener("click", () => setMenu(menu.getAttribute("aria-expanded") !== "true"));
 navLinks.forEach(link => link.addEventListener("click", () => setMenu(false)));
 document.addEventListener("keydown", event => { if (event.key === "Escape" && menu.getAttribute("aria-expanded") === "true") { setMenu(false); menu.focus(); } });
-window.addEventListener("resize", () => { if (window.innerWidth > 880) setMenu(false); });
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 880) setMenu(false);
+  updateNav();
+});
 function updateNav() {
   const offset = 125;
+  const page = document.documentElement;
+  const maxScroll = page.scrollHeight - page.clientHeight;
   let active = null;
-  for (const section of sections) if (section.getBoundingClientRect().top <= offset) active = section;
+  // A short final section may never reach the activation line above the fold.
+  if (maxScroll > 0 && page.scrollTop >= maxScroll - 2) {
+    active = sections[sections.length - 1];
+  } else {
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= offset) active = section;
+    }
+  }
   for (const link of navLinks) {
     const isActive = active?.id === link.hash.slice(1);
     link.classList.toggle("active", isActive);
@@ -30,6 +42,7 @@ window.addEventListener("scroll", () => {
     requestAnimationFrame(() => { updateNav(); scheduled = false; });
   }
 }, { passive: true });
+window.addEventListener("pageshow", updateNav);
 updateNav();
 const themeButton = document.getElementById("theme-btn");
 const html = document.documentElement;
