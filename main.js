@@ -71,3 +71,12 @@ if ("IntersectionObserver" in window && window.matchMedia("(prefers-reduced-moti
   }, { threshold: 0.5 });
   document.querySelectorAll(".section-label").forEach(label => labelObserver.observe(label));
 }
+
+if ("IntersectionObserver" in window) {
+  const motionObserver = new IntersectionObserver(entries => {
+    for (const { target, isIntersecting } of entries) {
+      target.style.setProperty("--motion-state", isIntersecting ? "running" : "paused");
+    }
+  });
+  document.querySelectorAll(".motion-surface").forEach(surface => motionObserver.observe(surface));
+}

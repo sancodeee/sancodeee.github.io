@@ -8,7 +8,6 @@
 }
 .trace-pane[hidden] { display: none; }
 .trace-heading { grid-area: heading; align-self: end; }
-.trace-heading p { margin: 0 0 5px; color: var(--muted); font: 500 13px/1.5 var(--font); }
 .trace-heading h4 { margin: 0; font: 660 clamp(18px, 2vw, 25px)/1.35 var(--font); color: var(--ink); }
 .trace-map { grid-area: map; }
 .trace-readout { grid-area: readout; align-self: start; }
@@ -42,7 +41,6 @@
 .trace-message { min-height: 1.6em; margin: 10px 0 0; color: var(--muted); font: 500 14px/1.6 var(--font); }
 @media (max-width: 700px) {
   .trace-pane { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "map" "readout"; gap: 12px; }
-  .trace-heading p { margin: 0; }
 }
 @media (max-width: 360px) {
   .trace-node b { font-size: 12px; }
@@ -67,7 +65,6 @@
   scroll-margin-top: 10px;
 }
 .approval-figure { margin: 0; min-width: 0; }
-.approval-figure figcaption { margin-bottom: 8px; color: #dfebdf; font: 600 14px/1.5 var(--font); }
 .approval-map {
   height: clamp(138px, 14vw, 166px); border-color: #536354;
   background-color: #1c2721; background-image: radial-gradient(#3d4c41 .8px, transparent 1px); background-size: 12px 12px;
