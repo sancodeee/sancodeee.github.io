@@ -445,3 +445,15 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
   .pointer-glow.is-visible { opacity: 1; }
 }
 @media (forced-colors: active) { .pointer-glow { display: none; } }
+
+@media screen and (any-hover: hover) and (any-pointer: fine) and (forced-colors: none) {
+  html {
+    cursor: url("assets/cursor-arrow.svg") 3 2, auto;
+  }
+  :where(p, code, .timeline li, .responsibility-content li) {
+    cursor: text;
+  }
+  a[href], button:enabled, .project-deepdive > summary {
+    cursor: url("assets/cursor-hand.svg") 10 3, pointer;
+  }
+}
