@@ -37,12 +37,15 @@
   box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 .trace-meter {
-  position: relative; height: 2px; margin-inline: 18px;
+  --car-width: 36px;
+  position: relative; height: 2px; margin-inline: var(--car-width) 1px;
   background: var(--line); border-radius: 1px;
 }
 .trace-car {
   position: absolute; bottom: 1px; left: calc(var(--progress, 0) * 100%);
-  width: 36px; height: 18px; transform: translateX(-50%);
+  width: var(--car-width); height: auto;
+  /* The painted front bumper is at x=39.05 in the 40-unit SVG. */
+  transform: translateX(-97.625%);
   color: var(--accent); pointer-events: none;
 }
 .trace-meter i { display: block; height: 100%; background: var(--accent); transform: scaleX(var(--progress, 0)); transform-origin: left; }
