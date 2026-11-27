@@ -125,7 +125,7 @@
         </div>
         <div class="visual-foot"><span>Dynamic forms</span><span>CRM</span><span>Provider integration</span></div>
       </div>
-      <div class="project-info"><div class="project-eyebrow"><span class="project-category">汽车金融 · SaaS</span><span>2025.06 — 至今</span></div><h3>Fintorq 汽车金融服务平台(澳洲)</h3><p class="project-role">Java 后端开发 / AI Coding 全栈开发</p><p class="project-summary">面向澳洲汽车金融业务，连接客户、经销商、Broker、运营人员与多个金融机构，覆盖动态问答、报价申请、资料管理与 CRM 运营。</p>
+      <div class="project-info"><div class="project-eyebrow"><span class="project-category">汽车金融 · SaaS</span><span>2025.06 — 至今</span></div><h3>Fintorq 汽车金融服务平台(澳洲)</h3><p class="project-role">Java 后端开发 / AI Coding 全栈开发</p><p class="project-summary">面向澳洲汽车金融市场的 SaaS 平台，覆盖 Finance 与 Novated Lease 两条业务线。客户、车企与经销商（OEM / Dealer）、经纪人（Broker）、运营人员及多家 Lender / Provider 在平台上协作，业务从获客、动态问答、报价申请延伸到征信签署、资料补件、外部提单和 B 端 CRM 运营。</p>
         <div class="project-highlights"><div><strong>动态问答体系</strong><span>从 0 到 1 构建配置化动态问答内核，支持多机构、多问卷版本及中断恢复。</span></div><div><strong>多机构集成</strong><span>抽象统一领域模型与 Provider Adapter，隔离不同机构的规则及流程差异。</span></div><div><strong>核心模块与授权</strong><span>交付 B/C 端核心业务与 CRM 权限体系，治理行级、操作及字段可见性。</span></div><div><strong>全栈与质量闭环</strong><span>以 Java 为核心，借助 AI 完成 React、单元、集成与 E2E 测试，负责审查与联调。</span></div></div>
       </div>
       <section class="trace-pane" id="fintorq-trace" aria-labelledby="fintorq-trace-heading" hidden>
@@ -148,11 +148,11 @@
           <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Boot 3</span><span>MyBatis-Plus</span><span>MySQL</span><span>Redis / Redisson</span><span>React 18</span><span>TypeScript</span><span>Umi Max</span><span>Playwright for Java</span><span>JUnit 5</span><span>Testcontainers</span><span>SOAP / Webhook</span><span>HMAC / SSE</span><span>CEL</span></div></div>
           <ol class="responsibility-list" role="list">
             <li>
-              <h4><span aria-hidden="true">01</span>动态问答内核</h4>
+              <h4><span aria-hidden="true">01</span>动态问答内核（从 0 到 1）</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>问答主链路</strong>从 0 到 1 主导 C 端问答开发，将页面、问题、选项、答案、阶段和版本建模，支持答案保存、页面导航和中断恢复。</li>
-                  <li><strong>规则配置</strong>将页面级接口演进为基于 CEL 表达式的动态问答体系。B 端和 C 端复用同一套内核，每家金融机构可配置自己的问卷和版本。</li>
+                  <li><strong>问题获取与答案保存</strong>从 0 到 1 主导 C 端核心问题接口和问答主链路。围绕页面、问题、选项、答案、阶段和版本建立模型，完成问题获取、答案保存、页面导航和中断恢复，并将问答结果与业务数据联动。</li>
+                  <li><strong>多端、多机构复用</strong>持续将页面级接口演进为基于 CEL 表达式的动态问答体系。C 端和 B 端复用同一套内核，各家贷款机构（Lender）可以配置自己的问卷规则，并行使用不同问卷版本。</li>
                 </ul>
               </div>
             </li>
@@ -160,9 +160,9 @@
               <h4><span aria-hidden="true">02</span>复杂规则与数据一致性</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>即时跳页</strong>计算下一页时，优先采用本次请求提交的答案，解决答案尚未入库就要判断跳转路径的问题。</li>
-                  <li><strong>回退修改</strong>用户修改前序答案后，清理旧路径上已失效的数据，仅将有效答案用于报价与提单。</li>
-                  <li><strong>版本隔离</strong>每笔申请绑定对应的问卷版本，并按金融机构隔离配置，让历史申请在问卷升级后仍可继续。</li>
+                  <li><strong>本次答案优先</strong>计算下一页时，先用本次请求中的答案覆盖已保存的答案，再执行跳页规则。即使新答案尚未落库，返回的下一页也能反映用户刚作出的选择。</li>
+                  <li><strong>回退后的数据清理</strong>用户回到前页修改答案时，清理因改走新路径而失效的数据，再将有效答案映射到相关业务对象，避免旧路径的答案继续参与报价或提单。</li>
+                  <li><strong>历史申请的版本绑定</strong>将 Application 与问卷版本绑定，并按 Lender 和版本隔离规则。问卷升级后，已发起的申请仍按原版本继续办理。</li>
                 </ul>
               </div>
             </li>
@@ -170,63 +170,63 @@
               <h4><span aria-hidden="true">03</span>B/C 端核心业务交付</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>业务模块</strong>主导 Customer Portal、Pipeline、Quotes 和 Application Centre 的交付，并建设 Documents 文档中心。</li>
-                  <li><strong>领域与状态</strong>梳理线索（Lead）、申请（Application）和报价（Quotation）的职责边界，处理跨模块的状态一致性。</li>
-                  <li><strong>跨端交付</strong>设计后端接口契约，借助 AI 开发 React 页面，亲自审查和修正代码，完成前后端联调与验收。</li>
+                  <li><strong>业务模块</strong>主导 Customer Portal、Pipeline、Quotes 和 Application Centre 的交付，并负责 Documents 文档中心的核心建设。</li>
+                  <li><strong>领域边界</strong>围绕线索（Lead）、申请（Application）和报价（Quotation）划分职责，处理跨模块流转时的状态一致性。</li>
+                  <li><strong>前后端交付</strong>以 Java 后端为主，借助 AI 完成 React 页面开发及接口契约。我负责生成代码的审查与修正、前后端联调、测试和最终交付。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">04</span>金融机构与外部服务接入</h4>
+              <h4><span aria-hidden="true">04</span>多家金融机构与外部服务接入</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>机构适配</strong>主导多家 Lender 的接入设计，抽象统一业务快照、报价和提单策略，通过 Provider Adapter 处理各机构的字段、规则和流程差异。</li>
-                  <li><strong>外部服务</strong>对接 Equifax、DocuSign 和 Loqate，处理 SOAP/WSDL 接口、OAuth/JWT 认证、Webhook 回调验签，以及重复和乱序回调。</li>
+                  <li><strong>机构适配</strong>主导多家 Lender 的接入与整体设计，抽象统一业务快照、报价策略和提单策略。通过 Provider Adapter 适配各机构的字段、业务规则及流程差异。</li>
+                  <li><strong>协议、认证与回调</strong>承担 Equifax、DocuSign、Loqate 接入的核心开发，处理 SOAP / WSDL 协议对接、OAuth / JWT 认证以及 Webhook 的 HMAC 验签。针对重复和乱序回调，进行幂等处理并维护业务状态一致。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">05</span>机构门户自动化提单</h4>
+              <h4><span aria-hidden="true">05</span>Lender Portal 自动化提单</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>任务编排</strong>针对缺少标准 API 的机构，设计后端与 Playwright Worker 的协作流程，以任务状态机跟踪提单进度。</li>
-                  <li><strong>提交确认</strong>在正式提交前支持试运行与人工确认。提交结果不明确时转入人工核查，避免对同一申请重复提单。</li>
+                  <li><strong>后端与浏览器协作</strong>针对缺少标准 API 的机构，主导后端与 Playwright Worker 的架构设计和核心流程开发。后端以任务状态机跟踪进度，Worker 在机构门户执行操作，通过带 HMAC 签名的回调同步任务结果。</li>
+                  <li><strong>不可逆提交</strong>通过 Dry Run 试运行验证流程，在需要时引入一次性验证码（OTP）和人工确认，用 Watchdog 监控任务超时。遇到无法确认是否已提交的情况，将任务转交人工核查，避免重复提单。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">06</span>外部雇主数据目录</h4>
+              <h4><span aria-hidden="true">06</span>外部雇主数据目录建设</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>采集与入库</strong>解析外部雇主数据、统一字段格式，在事务中新增或更新记录，并标记已失效条目。</li>
-                  <li><strong>质量校验</strong>检查同步数量与数据降幅。同步异常时回滚并保留上一批有效数据，更新成功后使相关缓存失效。</li>
+                  <li><strong>采集与标准化</strong>负责 SMART、MAXXIA 两个来源的雇主数据采集和同步。解析外部数据、统一字段格式，并在写入前校验记录总数及相对上批的降幅。</li>
+                  <li><strong>更新、回滚与缓存</strong>在事务内通过 Upsert 新增或更新雇主记录，并将失效记录标记为 inactive。同步失败时回滚，保留上一批有效数据。更新成功后使相关缓存失效，让业务能读到最新的可用目录。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">07</span>CRM 权限模型</h4>
+              <h4><span aria-hidden="true">07</span>CRM 权限与数据隔离</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>授权条件</strong>结合 RBAC、ABAC 与 DataScope，按角色、组织层级、记录负责人、经办人及业务状态判断访问范围。</li>
-                  <li><strong>分层校验</strong>分别控制菜单、操作、数据行和敏感字段的可见性。前端在权限未明确时默认限制访问，后端在查询和执行操作时再次校验。</li>
+                  <li><strong>授权条件</strong>面向多组织、多角色和跨业务线的数据隔离，在负责的 CRM 模块中设计并落地 RBAC、ABAC 与 DataScope。将角色权限与组织层级、记录所有者（Owner）、经办人（Assignee）、业务状态和敏感字段策略组合判断。</li>
+                  <li><strong>读写两侧的校验</strong>前端在缺少明确授权时默认限制访问（fail-closed）。后端对查询和写入命令分别复核权限，分层控制菜单、操作、行级数据以及字段可见性。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">08</span>团队 AI 研发规范</h4>
+              <h4><span aria-hidden="true">08</span>团队 AI Native 研发规范</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>代码与业务规范</strong>开发项目代码规范插件，将问卷配置等业务规则整理为团队可复用的 Skills。</li>
-                  <li><strong>工具接入</strong>整理 Grafana、Jenkins 的 MCP 接入方式、使用文档和操作边界，供团队在编码、排障与验证时复用。</li>
+                  <li><strong>代码插件与业务 Skills</strong>面向项目组开发 Fintorq Code Style 代码规范插件，并将问卷问题配置等业务知识整理为可复用的 Skills。</li>
+                  <li><strong>工具接入与使用边界</strong>整理 Grafana、Jenkins 等系统的 MCP 接入、配置和使用文档，写清工具的操作边界。团队在辅助需求分析、编码、排障和验证时，可以复用同一套规范与上下文。</li>
                 </ul>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">09</span>AI 辅助全栈研发与测试</h4>
+              <h4><span aria-hidden="true">09</span>AI Coding 全栈研发与测试</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>研发分工</strong>以 Java 后端为主，结合 AI Agent 完成 Spring Boot 和 React 开发，由本人负责需求分析、领域与接口设计、代码审查和修正。</li>
-                  <li><strong>分层验证</strong>用 JUnit 编写单元测试，以 Testcontainers 启动 MySQL、Redis 做集成测试，再用 Playwright 验证端到端业务流程。</li>
+                  <li><strong>设计与实现</strong>以 Java 为核心，通过 AI Coding 协同完成 Spring Boot 后端与 React 前端开发。我负责需求分析、领域与接口设计、生成代码的审查和修正，以及前后端联调。</li>
+                  <li><strong>分层验证与验收</strong>使用 JUnit 编写单元测试，通过 Testcontainers 启动 MySQL 和 Redis 执行集成测试，再用 Playwright 验证端到端业务流程。最终结合真实业务场景完成验证和验收。</li>
                 </ul>
               </div>
             </li>
@@ -251,8 +251,8 @@
         </figure>
         <div class="visual-foot"><span>Microservices</span><span>Workflow</span><span>Automation</span></div>
       </div>
-      <div class="project-info"><div class="project-eyebrow"><span class="project-category">企业 SaaS · 微服务</span><span>2024.01 — 2025.05</span></div><h3>达人营销平台</h3><p class="project-role">Java 服务端开发</p><p class="project-summary">为广告客户与媒体达人提供线上匹配和合作流程管理，支持审批流、广告推广及直播加速等业务协同。</p>
-        <div class="project-highlights"><div><strong>流程引擎服务</strong><span>独立搭建 Activiti 流程引擎服务，封装流程能力供各业务服务统一调用。</span></div><div><strong>微服务及业务研发</strong><span>参与服务拆分与公共组件建设，负责客户中心、达人广场和订单等核心模块。</span></div><div><strong>工程与性能治理</strong><span>建设注解式接口限流、操作日志及安全校验，结合异步消息和 SQL 优化治理性能。</span></div><div><strong>自动化交付</strong><span>编写和优化 Jenkins Pipeline，支持 Docker 与 Kubernetes 容器化发布。</span></div></div>
+      <div class="project-info"><div class="project-eyebrow"><span class="project-category">企业 SaaS · 微服务</span><span>2024.01 — 2025.05</span></div><h3>达人营销平台</h3><p class="project-role">Java 服务端开发</p><p class="project-summary">公司在线下签约有广告推广需求的客户。客户在平台的达人广场寻找合适的媒体达人，提交合作申请。审批通过后，双方签约，由达人按客户需求开展广告推广。客户还可以接收直播加速订单的报告，平台提供多维度统计图表。</p>
+        <div class="project-highlights"><div><strong>流程引擎服务</strong><span>搭建独立的 Activiti 流程引擎服务，按广告合作审批逻辑绘制 BPMN 流程图，并向业务服务提供统一接口。</span></div><div><strong>微服务及业务研发</strong><span>参与服务拆分与公共组件建设，负责客户中心、达人广场和订单等核心模块。</span></div><div><strong>工程与性能治理</strong><span>通过注解实现接口限流和公网请求校验，使用线程池优化 OpenFeign 调用，并通过 SQL 改写与索引调整治理慢查询。</span></div><div><strong>自动化交付</strong><span>编写和优化 Jenkins Pipeline，支持 Docker 与 Kubernetes 容器化发布。</span></div></div>
       </div>
       <details class="project-deepdive">
         <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>5 项主要职责</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
@@ -260,51 +260,70 @@
           <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Cloud Alibaba</span><span>Spring Boot 3</span><span>Nacos</span><span>OpenFeign</span><span>Redis</span><span>MySQL 8</span><span>Activiti 7</span><span>Flowable</span><span>RabbitMQ</span><span>Guava</span><span>Jenkins</span><span>Docker</span><span>Kubernetes</span></div></div>
           <ol class="responsibility-list" role="list">
             <li>
-              <h4><span aria-hidden="true">01</span>流程引擎服务搭建</h4>
+              <h4><span aria-hidden="true">01</span>独立审批流程服务</h4>
               <div class="responsibility-content">
-                <p>为支持广告合作审批，基于 Spring Cloud 搭建独立的 Activiti 7 微服务，将流程能力封装成接口，供业务服务统一调用。</p>
+                <p>为满足广告合作审批需求，基于 Spring Cloud 搭建独立的 Activiti 流程引擎微服务。将引擎 API 封装为服务接口，供其他业务微服务调用，业务侧无需直接操作引擎。</p>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">02</span>核心业务模块设计及开发</h4>
+              <h4><span aria-hidden="true">02</span>核心业务模块设计与开发</h4>
               <div class="responsibility-content">
                 <ol class="responsibility-modules">
-                  <li><h5>微服务与公共模块</h5><p>参与服务拆分与设计，主导微服务搭建及公共模块开发，统一响应体、自定义异常、全局异常处理和接口日志。</p></li>
-                  <li><h5>审批流程建模</h5><p>根据业务审批逻辑绘制 BPMN 流程图，封装 Activiti 7 原生 API，让业务模块通过接口调用流程服务。</p></li>
-                  <li><h5>用户操作日志</h5><p>通过 Spring AOP 和自定义注解记录业务操作，由切面统一处理日志。</p></li>
-                  <li><h5>接口级限流</h5><p>结合 Guava Cache、RateLimiter 和 AOP 实现令牌桶限流。在类或方法上添加注解即可配置请求速率。</p></li>
-                  <li><h5>达人广场与客户中心</h5><p>负责两个核心业务模块的数据库表设计、接口设计及服务端实现。</p></li>
-                  <li><h5>直播加速订单服务</h5>
+                  <li>
+                    <h5>微服务与公共模块</h5>
+                    <p>参与微服务拆分与设计，主导微服务搭建及公共模块的设计实现。统一公共响应体和自定义异常，编写全局异常拦截器与接口日志打印拦截器，供各服务复用。</p>
+                  </li>
+                  <li>
+                    <h5>审批流程建模</h5>
+                    <p>按业务审批逻辑绘制 BPMN 流程图，并封装 Activiti 7 原生 API。业务服务通过统一接口调用审批流程，流程定义和引擎调用集中在流程服务中。</p>
+                  </li>
+                  <li>
+                    <h5>用户操作日志</h5>
+                    <p>使用 Spring AOP 和自定义注解记录用户在业务系统中的操作。业务方法通过注解标记需要记录的操作，由切面统一采集日志。</p>
+                  </li>
+                  <li>
+                    <h5>接口级限流</h5>
+                    <p>采用令牌桶算法，结合 Guava Cache、Guava RateLimiter、自定义注解和 AOP 切面实现接口级限流。在类或方法上添加注解并配置参数，即可控制相应接口的请求速率。</p>
+                  </li>
+                  <li>
+                    <h5>达人广场与客户中心</h5>
+                    <p>负责达人广场和客户中心两个核心模块的数据库表设计、业务接口设计及服务端实现，支撑客户线上查找媒体达人并开展合作。</p>
+                  </li>
+                  <li>
+                    <h5>直播加速订单服务</h5>
                     <ol class="order-steps">
-                      <li><strong>订单建模</strong>设计并实现直播加速订单的数据表和业务接口。</li>
-                      <li><strong>对接火山引擎</strong>将第三方直播加速 API 封装成供订单服务调用的客户端。</li>
-                      <li><strong>报告交付</strong>接收回调后，通过 RabbitMQ 异步下载并保存报告文件，再向对应客户发送报告邮件。</li>
-                      <li><strong>回调安全</strong>通过注解启用身份验证、数字签名校验和防重放检查，保护对外开放的接口。</li>
+                      <li><strong>订单建模</strong>负责直播加速订单模块的业务接口、数据库表设计及服务端实现。</li>
+                      <li><strong>第三方接入</strong>接入火山引擎（抖音）直播加速 API，将外部接口封装为客户端，供订单服务调用。</li>
+                      <li><strong>报告交付</strong>第三方回调返回直播加速报告的文件 URL。通过 RabbitMQ 异步处理回调，根据 URL 下载报告、持久化存储文件，并向这笔订单对应的客户发送报告邮件。</li>
+                      <li><strong>回调接口校验</strong>为公网开放的 API 实现注解式安全校验。在 AOP 切面校验请求身份、数字签名、SecretKey，并检查请求重放。将切面绑定到自定义注解，其他对外接口也可复用同一套校验。</li>
                     </ol>
                   </li>
-                  <li><h5>数据分析</h5><p>实现平台多维度统计图表，以策略模式封装不同日期维度的统计逻辑。</p></li>
+                  <li>
+                    <h5>平台数据分析</h5>
+                    <p>实现全平台多维度的数据统计图表。将不同日期维度的统计逻辑分别封装为策略，生成图表时按所需的日期维度选择统计方式。</p>
+                  </li>
                 </ol>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">03</span>对外接口安全封装</h4>
+              <h4><span aria-hidden="true">03</span>公网 API 安全封装</h4>
               <div class="responsibility-content">
-                <p>将公网 API 的签名验证、密钥校验和防重放逻辑封装为可复用的 AOP 切面，结合 SM3、SM4 处理第三方服务接入中的安全校验。</p>
+                <p>平台还需向第三方提供可从公网访问的服务 API。我在 Spring AOP 切面中集成 SM3 和 SM4，统一处理安全密钥、数字签名和请求防重放校验，让各业务接口复用相同的验证逻辑。</p>
               </div>
             </li>
             <li>
-              <h4><span aria-hidden="true">04</span>代码与 SQL 优化</h4>
+              <h4><span aria-hidden="true">04</span>OpenFeign 调用与慢 SQL 优化</h4>
               <div class="responsibility-content">
                 <ul>
-                  <li><strong>服务间调用</strong>针对 OpenFeign 调用中的同步等待，使用线程池并行执行可独立处理的请求，减少线程阻塞。</li>
-                  <li><strong>慢查询治理</strong>改写慢 SQL，调整相关索引，优化数据库查询。</li>
+                  <li><strong>服务间调用</strong>排查 OpenFeign 调用中的同步等待问题，通过线程池将可并行的服务请求改为多线程异步调用，以额外的并发资源换取更短的阻塞和等待时间，并使用 Postman 验证接口响应耗时。</li>
+                  <li><strong>数据库查询</strong>针对慢查询同时检查 SQL 写法和索引，改写相关查询并调整索引，治理数据库侧的性能问题。</li>
                 </ul>
               </div>
             </li>
             <li>
               <h4><span aria-hidden="true">05</span>自动化构建与发布</h4>
               <div class="responsibility-content">
-                <p>使用 Groovy 编写 Jenkins Pipeline，将 Docker 镜像构建与 Kubernetes 部署串成一条流水线，帮助团队自动完成构建和发布。</p>
+                <p>使用 Groovy 编写 Jenkins Pipeline 流水线脚本，将项目构建、Docker 镜像构建和 Kubernetes 部署串成自动发布流程，缩短开发完成到发布的交付周期，加快项目迭代。</p>
               </div>
             </li>
           </ol>
