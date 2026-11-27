@@ -436,11 +436,11 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
     user-select: none;
     opacity: 0;
     transform: translate3d(-120%, -120%, 0);
-    background: radial-gradient(circle closest-side, rgb(192 248 130 / 12%), rgb(165 232 119 / 5%) 46%, transparent 100%);
+    background: radial-gradient(circle closest-side, rgb(192 248 130 / 4.5%), rgb(165 232 119 / 1.25%) 40%, transparent 100%);
     transition: opacity 160ms ease-out;
   }
   html[data-theme="light"] .pointer-glow {
-    background: radial-gradient(circle closest-side, rgb(76 135 56 / 10%), rgb(100 156 70 / 4%) 46%, transparent 100%);
+    background: radial-gradient(circle closest-side, rgb(76 135 56 / 4%), rgb(100 156 70 / 1%) 40%, transparent 100%);
   }
   .pointer-glow.is-visible { opacity: 1; }
 }
