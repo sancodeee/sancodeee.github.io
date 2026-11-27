@@ -10,6 +10,7 @@
 <title>王森 SEN · 个人主页</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="trace.css">
 </head>
 <body>
 <a class="skip-link" href="#main">跳转到主要内容</a>
@@ -39,8 +40,29 @@
     <div class="identity-card" aria-label="个人技术档案">
       <div class="editor-head">
         <div class="editor-title"><span class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="editor-file">profile.json</span></div>
+        <div class="trace-tabs" role="tablist" aria-label="技术档案视图" hidden>
+          <button type="button" role="tab" id="trace-tab" aria-controls="trace-pane" aria-selected="true">链路演示</button>
+          <button type="button" role="tab" id="profile-tab" aria-controls="profile-pane" aria-selected="false" tabindex="-1">profile.json</button>
+        </div>
         <span class="editor-language">JSON</span>
       </div>
+      <div id="trace-pane" class="trace-pane" role="tabpanel" aria-labelledby="trace-tab" hidden>
+        <div class="trace-heading">
+          <div><p>FINTORQ / 模拟请求</p><h2>汽车金融报价链路</h2></div>
+          <button class="trace-run" type="button"><span aria-hidden="true">▶</span> 运行一次</button>
+        </div>
+        <div class="trace-map" role="img" aria-label="贷款申请经过动态问答，再分别适配两家模拟机构，最后汇总报价">
+          <canvas aria-hidden="true"></canvas>
+          <span class="trace-node" data-node="entry" style="--x:11%;--y:48%"><i aria-hidden="true">＋</i><b>贷款申请</b></span>
+          <span class="trace-node trace-hub" data-node="model" style="--x:36%;--y:48%"><i aria-hidden="true">{ }</i><b>动态问答</b></span>
+          <span class="trace-node" data-node="a" style="--x:65%;--y:23%"><i aria-hidden="true">A</i><b>机构 A</b></span>
+          <span class="trace-node" data-node="b" style="--x:65%;--y:73%"><i aria-hidden="true">B</i><b>机构 B</b></span>
+          <span class="trace-node" data-node="quote" style="--x:89%;--y:48%"><i aria-hidden="true">≡</i><b>报价汇总</b></span>
+        </div>
+        <div class="trace-readout"><div class="trace-meter" aria-hidden="true"><i></i></div><p class="trace-message">就绪 · 可以运行一笔模拟申请</p></div>
+        <span class="trace-announcement" role="status"></span>
+      </div>
+      <div id="profile-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
       <div class="identity-code" aria-label="个人技术档案 JSON">
         <div class="code-line"><span class="code-n">01</span><code>{</code></div>
         <div class="code-line"><span class="code-n">02</span><code>  <span class="code-key">"name"</span>: <span class="code-string">"SEN"</span>,</code></div>
@@ -54,6 +76,7 @@
         <div class="code-line"><span class="code-n">10</span><code>}</code></div>
       </div>
       <div class="editor-workflow"><div class="editor-workflow-label">ENGINEERING WORKFLOW <span>研发闭环</span></div><div class="mini-flow"><span>Domain</span><i></i><span class="mini-active">Backend</span><i></i><span>AI Agent</span><i></i><span>Quality</span></div></div>
+      </div>
       <div class="editor-foot"><span>Java · Full-stack · AI</span><span>UTF-8</span></div>
     </div>
   </section>
@@ -312,5 +335,6 @@
   <div class="container footer-bottom"><span>© 2026 SEN WANG</span><span>Java Engineer · AI-Native Developer</span></div>
 </footer>
 <script defer src="main.js"></script>
+<script defer src="trace.js"></script>
 </body>
 </html>
