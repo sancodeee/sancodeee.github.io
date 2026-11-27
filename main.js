@@ -160,3 +160,54 @@ function setUpProjectDetails(details) {
 }
 
 document.querySelectorAll(".project-deepdive").forEach(setUpProjectDetails);
+
+function setUpPointerGlow() {
+  const glow = document.querySelector(".pointer-glow");
+  if (!glow) return;
+  const eligible = matchMedia("(any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)");
+  let frame = 0;
+  let x = 0;
+  let y = 0;
+
+  function hide() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    glow.classList.remove("is-visible");
+  }
+
+  function paint() {
+    frame = 0;
+    glow.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    glow.classList.add("is-visible");
+  }
+
+  function track(event) {
+    if (event.pointerType !== "mouse") {
+      hide();
+      return;
+    }
+    x = event.clientX;
+    y = event.clientY;
+    if (!frame) frame = requestAnimationFrame(paint);
+  }
+
+  function syncPreference() {
+    if (eligible.matches) {
+      document.addEventListener("pointermove", track, { passive: true });
+    } else {
+      document.removeEventListener("pointermove", track);
+      hide();
+    }
+  }
+
+  document.addEventListener("pointerout", event => { if (!event.relatedTarget) hide(); });
+  document.addEventListener("pointerdown", event => { if (event.pointerType !== "mouse") hide(); }, { passive: true });
+  document.addEventListener("pointercancel", hide);
+  document.addEventListener("keydown", hide);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) hide(); });
+  window.addEventListener("blur", hide);
+  eligible.addEventListener("change", syncPreference);
+  syncPreference();
+}
+
+setUpPointerGlow();
