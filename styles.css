@@ -35,12 +35,67 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
 .deepdive-body{padding:0 26px 27px}
 .project-stack{padding:15px 0 20px;border-top:1px solid var(--line)}
 .project-stack h4{font-size:14px;font-weight:650;margin:0 0 11px;color:var(--ink)}
-.contribution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.contribution-item{border:1px solid var(--line);background:var(--section);border-radius:10px;padding:18px 19px}
-.contribution-item h4{display:flex;align-items:baseline;gap:9px;font-size:16px;font-weight:680;line-height:1.6;letter-spacing:-.01em;margin:0 0 8px}
-.contribution-item h4:before{content:"";display:inline-block;flex-shrink:0;width:5px;height:5px;border-radius:1px;background:var(--accent);transform:translateY(-3px)}
-.contribution-item p{font-size:15px;color:var(--muted);line-height:1.85}
-.contribution-grid .contribution-item:last-child:nth-child(odd){grid-column:1/-1}
+.responsibility-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.responsibility-list > li {
+  display: grid;
+  grid-template-columns: minmax(12rem, 27%) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.75rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--line);
+}
+.responsibility-list > li:last-child { padding-bottom: 0; }
+.responsibility-list h4 {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.responsibility-list h4 span {
+  flex: none;
+  border: 1px solid var(--soft-line);
+  border-radius: .35rem;
+  padding: .14rem .34rem;
+  background: var(--soft);
+  color: var(--accent);
+  font: 600 .8rem/1.4 var(--mono);
+}
+.responsibility-content {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.responsibility-content ul, .responsibility-content ol {
+  margin: 0;
+  padding-inline-start: 1.35rem;
+}
+.responsibility-content li + li { margin-top: .5rem; }
+.responsibility-content li::marker { color: var(--accent); }
+.responsibility-content strong { color: var(--ink); margin-inline-end: .55em; }
+.responsibility-content .responsibility-modules { padding-inline-start: 1.7rem; }
+.responsibility-modules > li::marker { font: 600 .88rem var(--mono); }
+.responsibility-modules > li + li { margin-top: 1rem; }
+.responsibility-modules h5 { color: var(--ink); font-size: 1rem; line-height: 1.65; margin: 0 0 .15rem; }
+.responsibility-modules .order-steps {
+  margin-top: .5rem;
+  padding: .6rem .85rem .6rem 2.05rem;
+  border-inline-start: 2px solid var(--soft-line);
+  background: var(--section);
+  border-radius: 0 .4rem .4rem 0;
+  list-style-type: lower-alpha;
+}
+@media (max-width: 760px) {
+  .responsibility-list > li { grid-template-columns: minmax(0, 1fr); gap: .6rem; padding-block: 1.15rem; }
+  .responsibility-list h4 { font-size: 1rem; }
+}
 .detailed-skills{grid-template-columns:repeat(2,minmax(0,1fr))}
 .detailed-skills .skill-card{padding:23px 24px}
 .skill-card-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
@@ -49,7 +104,7 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
 .detailed-skills .skill-card h3{font-size:20px;margin-bottom:10px}
 .detailed-skills .skill-card p{font-size:16px;line-height:1.85}
 .detailed-skills .stack-tags{padding-top:3px}
-@media(max-width:700px){.contribution-grid,.detailed-skills{grid-template-columns:1fr}.project-deepdive>summary{padding:15px 18px}.deepdive-body{padding:0 16px 19px}.contribution-item{padding:15px}.deepdive-title{gap:8px}.deepdive-title strong{font-size:15px}.contribution-grid .contribution-item:last-child:nth-child(odd){grid-column:auto}.detailed-skills .skill-card{padding:20px}.detailed-skills .skill-card p{font-size:15px}}
+@media(max-width:700px){.detailed-skills{grid-template-columns:1fr}.project-deepdive>summary{padding:15px 18px}.deepdive-body{padding:0 16px 19px}.deepdive-title{gap:8px}.deepdive-title strong{font-size:15px}.detailed-skills .skill-card{padding:20px}.detailed-skills .skill-card p{font-size:15px}}
 /* Real institutional marks are placed on neutral tiles to preserve brand colors. */
 .career-identity{display:flex;align-items:center;gap:15px;min-width:0;flex:1}
 .company-logo{width:94px;height:57px;display:grid;place-items:center;padding:8px;background:#fff;border:1px solid #e0e5dc;border-radius:8px;flex-shrink:0}

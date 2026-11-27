@@ -33,7 +33,7 @@
       <div class="hero-kicker"><span></span> HELLO, WORLD <i> / </i> PERSONAL PORTFOLIO</div>
       <div class="hero-name"><span class="hero-nickname">你好，我是</span><h1>王森</h1><span class="latin-name">SEN WANG</span></div>
       <p class="hero-role">Java 后端工程师<br><span>AI-Native 全栈研发</span></p>
-      <p class="hero-description">4 年以上 Java 服务端研发经验，专注复杂业务建模与微服务架构。探索 AI Agent 驱动的全栈协作，将需求、设计、开发、测试与交付连接成完整工程闭环。</p>
+      <p class="hero-description">4 年以上 Java 服务端研发经验，专注复杂业务建模与微服务架构。探索 AI Agent 驱动的全栈协作，将需求、设计、开发、测试与交付连接成完整工程闭环</p>
       <div class="hero-actions"><a href="#projects" class="button primary">探索我的项目</a><a href="#experience" class="button secondary">了解职业经历</a></div>
     </div>
     <div class="identity-card" aria-label="个人技术档案">
@@ -99,21 +99,95 @@
       <div class="project-info"><div class="project-eyebrow"><span class="project-category">汽车金融 · SaaS</span><span>2025.06 — 至今</span></div><h3>Fintorq 汽车金融服务平台</h3><p class="project-role">Java 后端开发 / AI Coding 全栈开发</p><p class="project-summary">面向澳洲汽车金融业务，连接客户、经销商、Broker、运营人员与多个金融机构，覆盖动态问答、报价申请、资料管理与 CRM 运营。</p>
         <div class="project-highlights"><div><strong>动态问答体系</strong><span>从 0 到 1 构建配置化动态问答内核，支持多机构、多问卷版本及中断恢复。</span></div><div><strong>多机构集成</strong><span>抽象统一领域模型与 Provider Adapter，隔离不同机构的规则及流程差异。</span></div><div><strong>核心模块与授权</strong><span>交付 B/C 端核心业务与 CRM 权限体系，治理行级、操作及字段可见性。</span></div><div><strong>全栈与质量闭环</strong><span>以 Java 为核心，借助 AI 完成 React、单元、集成与 E2E 测试，负责审查与联调。</span></div></div>
       </div>
-          <details class="project-deepdive">
-        <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>9 项核心贡献</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
+      <details class="project-deepdive">
+        <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>9 项主要职责</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
         <div class="deepdive-body">
           <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Boot 3</span><span>MyBatis-Plus</span><span>MySQL</span><span>Redis / Redisson</span><span>React 18</span><span>TypeScript</span><span>Umi Max</span><span>Playwright for Java</span><span>JUnit 5</span><span>Testcontainers</span><span>SOAP / Webhook</span><span>HMAC / SSE</span><span>CEL</span></div></div>
-          <div class="contribution-grid">
-            <div class="contribution-item"><h4>动态问答内核（从 0 到 1）</h4><p>主导 C 端核心问题接口及问答主链路，建立页面、问题、选项、答案、阶段和版本模型，支持问题获取、答案保存、页面导航、中断恢复与业务数据联动。持续推进问答接口演进，形成面向 B/C 两端、多 Lender、多版本的 CEL 配置化动态问答体系。</p></div>
-            <div class="contribution-item"><h4>复杂规则与数据一致性</h4><p>针对当前答案尚未落库时的跳页计算、修改前序答案后旧路径失效、问卷升级与历史申请兼容等问题，设计请求内答案覆盖、失效路径数据清理、Application 版本绑定及 Lender/版本隔离机制，并将有效答案投影到相关业务对象。</p></div>
-            <div class="contribution-item"><h4>B/C 端核心业务交付</h4><p>主导 Customer Portal、Pipeline、Quotes、Application Centre 等核心模块的交付，并建设 Documents 文档中心。围绕 Lead、Application、Quotation 的领域边界与状态一致性进行设计，以后端为核心，负责 AI 协作生成代码的审查、前后端联调、测试和最终验收。</p></div>
-            <div class="contribution-item"><h4>多 Lender 与外部服务集成</h4><p>抽象统一业务快照、报价及提单策略与 Provider Adapter，隔离机构字段、业务规则与流程差异；参与 Equifax、DocuSign、Loqate 等外部服务接入，处理 SOAP/WSDL、OAuth/JWT、Webhook/HMAC、幂等及乱序回调等工程问题。</p></div>
-            <div class="contribution-item"><h4>外部业务流程自动化</h4><p>面向缺少标准 API 的机构，设计后端与 Playwright Worker 协作架构，建设任务状态管理、人工确认、异常兜底和 Dry Run 等能力。对于结果不确定的任务，采用人工核查机制，避免重复执行业务操作。</p></div>
-            <div class="contribution-item"><h4>外部数据目录与质量治理</h4><p>建设外部雇主数据的采集与同步能力，完成数据解析、字段标准化、数量及降幅质量校验、事务 Upsert 和 inactive 标记；同步异常时保留已有有效数据，并协调缓存更新，保障内部目录可用性。</p></div>
-            <div class="contribution-item"><h4>RBAC + ABAC + DataScope</h4><p>针对多组织、多角色及跨业务线的数据隔离需求，在 CRM 模块落地融合授权模型，将角色、组织层级、Owner/Assignee、业务状态与敏感字段策略组合，实现菜单、操作、行级数据及字段可见性的分层控制。</p></div>
-            <div class="contribution-item"><h4>团队 AI Native 研发建设</h4><p>开发项目代码规范插件与业务 Skills，沉淀 Grafana、Jenkins 等工具的 MCP 接入及使用文档，将编码标准、业务规则和工具操作边界转化为 AI 可复用上下文，促进团队在需求分析、编码、排障与验证中的一致协作。</p></div>
-            <div class="contribution-item"><h4>AI Coding 全栈研发与测试</h4><p>基于 Java 后端，通过 AI Agent 协作完成 Spring Boot、React、JUnit 单元测试、MySQL/Redis Testcontainers 集成测试与 Playwright E2E 测试；负责需求分析、领域及接口设计、代码审查修正、跨端联调和真实场景验证，形成完整交付闭环。</p></div>
-          </div>
+          <ol class="responsibility-list" role="list">
+            <li>
+              <h4><span aria-hidden="true">01</span>动态问答内核</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>问答主链路</strong>从 0 到 1 主导 C 端问答开发，将页面、问题、选项、答案、阶段和版本建模，支持答案保存、页面导航和中断恢复。</li>
+                  <li><strong>规则配置</strong>将页面级接口演进为基于 CEL 表达式的动态问答体系。B 端和 C 端复用同一套内核，每家金融机构可配置自己的问卷和版本。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">02</span>复杂规则与数据一致性</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>即时跳页</strong>计算下一页时，优先采用本次请求提交的答案，解决答案尚未入库就要判断跳转路径的问题。</li>
+                  <li><strong>回退修改</strong>用户修改前序答案后，清理旧路径上已失效的数据，仅将有效答案用于报价与提单。</li>
+                  <li><strong>版本隔离</strong>每笔申请绑定对应的问卷版本，并按金融机构隔离配置，让历史申请在问卷升级后仍可继续。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">03</span>B/C 端核心业务交付</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>业务模块</strong>主导 Customer Portal、Pipeline、Quotes 和 Application Centre 的交付，并建设 Documents 文档中心。</li>
+                  <li><strong>领域与状态</strong>梳理线索（Lead）、申请（Application）和报价（Quotation）的职责边界，处理跨模块的状态一致性。</li>
+                  <li><strong>跨端交付</strong>设计后端接口契约，借助 AI 开发 React 页面，亲自审查和修正代码，完成前后端联调与验收。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">04</span>金融机构与外部服务接入</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>机构适配</strong>主导多家 Lender 的接入设计，抽象统一业务快照、报价和提单策略，通过 Provider Adapter 处理各机构的字段、规则和流程差异。</li>
+                  <li><strong>外部服务</strong>对接 Equifax、DocuSign 和 Loqate，处理 SOAP/WSDL 接口、OAuth/JWT 认证、Webhook 回调验签，以及重复和乱序回调。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">05</span>机构门户自动化提单</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>任务编排</strong>针对缺少标准 API 的机构，设计后端与 Playwright Worker 的协作流程，以任务状态机跟踪提单进度。</li>
+                  <li><strong>提交确认</strong>在正式提交前支持试运行与人工确认。提交结果不明确时转入人工核查，避免对同一申请重复提单。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">06</span>外部雇主数据目录</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>采集与入库</strong>解析外部雇主数据、统一字段格式，在事务中新增或更新记录，并标记已失效条目。</li>
+                  <li><strong>质量校验</strong>检查同步数量与数据降幅。同步异常时回滚并保留上一批有效数据，更新成功后使相关缓存失效。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">07</span>CRM 权限模型</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>授权条件</strong>结合 RBAC、ABAC 与 DataScope，按角色、组织层级、记录负责人、经办人及业务状态判断访问范围。</li>
+                  <li><strong>分层校验</strong>分别控制菜单、操作、数据行和敏感字段的可见性。前端在权限未明确时默认限制访问，后端在查询和执行操作时再次校验。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">08</span>团队 AI 研发规范</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>代码与业务规范</strong>开发项目代码规范插件，将问卷配置等业务规则整理为团队可复用的 Skills。</li>
+                  <li><strong>工具接入</strong>整理 Grafana、Jenkins 的 MCP 接入方式、使用文档和操作边界，供团队在编码、排障与验证时复用。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">09</span>AI 辅助全栈研发与测试</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>研发分工</strong>以 Java 后端为主，结合 AI Agent 完成 Spring Boot 和 React 开发，由本人负责需求分析、领域与接口设计、代码审查和修正。</li>
+                  <li><strong>分层验证</strong>用 JUnit 编写单元测试，以 Testcontainers 启动 MySQL、Redis 做集成测试，再用 Playwright 验证端到端业务流程。</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
         </div>
       </details>
     </article>
@@ -125,20 +199,60 @@
       <div class="project-info"><div class="project-eyebrow"><span class="project-category">企业 SaaS · 微服务</span><span>2024.01 — 2025.05</span></div><h3>达人营销平台</h3><p class="project-role">Java 服务端开发</p><p class="project-summary">为广告客户与媒体达人提供线上匹配和合作流程管理，支持审批流、广告推广及直播加速等业务协同。</p>
         <div class="project-highlights"><div><strong>流程引擎服务</strong><span>独立搭建 Activiti 流程引擎服务，封装流程能力供各业务服务统一调用。</span></div><div><strong>微服务及业务研发</strong><span>参与服务拆分与公共组件建设，负责客户中心、达人广场和订单等核心模块。</span></div><div><strong>工程与性能治理</strong><span>建设注解式接口限流、操作日志及安全校验，结合异步消息和 SQL 优化治理性能。</span></div><div><strong>自动化交付</strong><span>编写和优化 Jenkins Pipeline，支持 Docker 与 Kubernetes 容器化发布。</span></div></div>
       </div>
-          <details class="project-deepdive">
-        <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>8 项核心贡献</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
+      <details class="project-deepdive">
+        <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>5 项主要职责</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
         <div class="deepdive-body">
           <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Cloud Alibaba</span><span>Spring Boot 3</span><span>Nacos</span><span>OpenFeign</span><span>Redis</span><span>MySQL 8</span><span>Activiti 7</span><span>RabbitMQ</span><span>Guava</span><span>Jenkins</span><span>Docker</span><span>Kubernetes</span></div></div>
-          <div class="contribution-grid">
-            <div class="contribution-item"><h4>独立流程引擎微服务</h4><p>基于 Spring Cloud 搭建独立 Activiti 7 流程引擎微服务，绘制 BPMN 流程图并封装原生 API，为各业务模块提供统一流程服务，支撑审批与业务协作。</p></div>
-            <div class="contribution-item"><h4>微服务拆分与公共组件</h4><p>参与微服务拆分及服务设计，主导部分微服务和公共模块建设，包括统一响应体、自定义异常、全局异常处理及接口日志拦截器。</p></div>
-            <div class="contribution-item"><h4>业务模块与数据建模</h4><p>负责达人广场、客户中心、直播加速订单等核心模块的数据库表结构、接口与业务逻辑设计；实现全平台多个维度的数据统计，并以策略模式支持不同日期维度。</p></div>
-            <div class="contribution-item"><h4>操作日志与接口级限流</h4><p>使用 Spring AOP 与自定义注解实现用户操作日志；基于令牌桶思想，结合 Guava Cache、Guava RateLimiter 和 AOP 构建可通过注解配置的接口限流能力。</p></div>
-            <div class="contribution-item"><h4>第三方服务与异步处理</h4><p>接入火山引擎直播加速服务，封装外部 API 客户端；使用 RabbitMQ 异步处理回调产生的报告文件，完成持久化存储及报告邮件通知，降低业务流程之间的耦合。</p></div>
-            <div class="contribution-item"><h4>外部 API 安全治理</h4><p>建设基于注解的外部接口安全校验机制，通过数字签名、请求身份验证与防重放等措施保护公网接口，并结合 SM3、SM4 等算法完成安全能力封装。</p></div>
-            <div class="contribution-item"><h4>代码性能与 SQL 优化</h4><p>针对 OpenFeign 服务间调用场景，使用线程池与异步调用优化接口并发处理；通过 SQL 改写、索引与查询结构优化治理慢 SQL。</p></div>
-            <div class="contribution-item"><h4>CI/CD 自动化构建与发布</h4><p>使用 Groovy 编写和优化 Jenkins Pipeline，串联 Docker 镜像构建与 Kubernetes 容器化部署，推动自动化构建、回归与发布。</p></div>
-          </div>
+          <ol class="responsibility-list" role="list">
+            <li>
+              <h4><span aria-hidden="true">01</span>流程引擎服务搭建</h4>
+              <div class="responsibility-content">
+                <p>为支持广告合作审批，基于 Spring Cloud 搭建独立的 Activiti 7 微服务，将流程能力封装成接口，供业务服务统一调用。</p>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">02</span>核心业务模块设计及开发</h4>
+              <div class="responsibility-content">
+                <ol class="responsibility-modules">
+                  <li><h5>微服务与公共模块</h5><p>参与服务拆分与设计，主导微服务搭建及公共模块开发，统一响应体、自定义异常、全局异常处理和接口日志。</p></li>
+                  <li><h5>审批流程建模</h5><p>根据业务审批逻辑绘制 BPMN 流程图，封装 Activiti 7 原生 API，让业务模块通过接口调用流程服务。</p></li>
+                  <li><h5>用户操作日志</h5><p>通过 Spring AOP 和自定义注解记录业务操作，由切面统一处理日志。</p></li>
+                  <li><h5>接口级限流</h5><p>结合 Guava Cache、RateLimiter 和 AOP 实现令牌桶限流。在类或方法上添加注解即可配置请求速率。</p></li>
+                  <li><h5>达人广场与客户中心</h5><p>负责两个核心业务模块的数据库表设计、接口设计及服务端实现。</p></li>
+                  <li><h5>直播加速订单服务</h5>
+                    <ol class="order-steps">
+                      <li><strong>订单建模</strong>设计并实现直播加速订单的数据表和业务接口。</li>
+                      <li><strong>对接火山引擎</strong>将第三方直播加速 API 封装成供订单服务调用的客户端。</li>
+                      <li><strong>报告交付</strong>接收回调后，通过 RabbitMQ 异步下载并保存报告文件，再向对应客户发送报告邮件。</li>
+                      <li><strong>回调安全</strong>通过注解启用身份验证、数字签名校验和防重放检查，保护对外开放的接口。</li>
+                    </ol>
+                  </li>
+                  <li><h5>数据分析</h5><p>实现平台多维度统计图表，以策略模式封装不同日期维度的统计逻辑。</p></li>
+                </ol>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">03</span>对外接口安全封装</h4>
+              <div class="responsibility-content">
+                <p>将公网 API 的签名验证、密钥校验和防重放逻辑封装为可复用的 AOP 切面，结合 SM3、SM4 处理第三方服务接入中的安全校验。</p>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">04</span>代码与 SQL 优化</h4>
+              <div class="responsibility-content">
+                <ul>
+                  <li><strong>服务间调用</strong>针对 OpenFeign 调用中的同步等待，使用线程池并行执行可独立处理的请求，减少线程阻塞。</li>
+                  <li><strong>慢查询治理</strong>改写慢 SQL，调整相关索引，优化数据库查询。</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h4><span aria-hidden="true">05</span>自动化构建与发布</h4>
+              <div class="responsibility-content">
+                <p>使用 Groovy 编写 Jenkins Pipeline，将 Docker 镜像构建与 Kubernetes 部署串成一条流水线，帮助团队自动完成构建和发布。</p>
+              </div>
+            </li>
+          </ol>
         </div>
       </details>
     </article>
