@@ -46,3 +46,15 @@ let themePreference;
 try { themePreference = localStorage.getItem("sen-portfolio-theme"); } catch {}
 setTheme(themePreference === "light" ? "light" : "dark");
 themeButton.addEventListener("click", () => setTheme(html.dataset.theme === "dark" ? "light" : "dark"));
+
+if ("IntersectionObserver" in window && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+  const labelObserver = new IntersectionObserver(entries => {
+    for (const { target, isIntersecting } of entries) {
+      if (isIntersecting) {
+        target.classList.add("in-view");
+        labelObserver.unobserve(target);
+      }
+    }
+  }, { threshold: 0.5 });
+  document.querySelectorAll(".section-label").forEach(label => labelObserver.observe(label));
+}

@@ -114,3 +114,72 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
 .edu-logo img{display:block;width:100%;height:100%;object-fit:contain}
 @media(max-width:880px){.career-identity{width:100%}}
 @media(max-width:700px){.company-logo{width:82px;height:52px;padding:7px}.career-identity{gap:12px}.career-name h3{font-size:20px}.edu-icon.edu-logo{width:61px;height:61px;padding:4px}}
+
+@keyframes portfolio-enter {
+  from { opacity: .58; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes accent-draw {
+  from { transform: scaleX(.15); }
+  to { transform: scaleX(1); }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .hero-copy > *, .hero > .identity-card {
+    animation: portfolio-enter 440ms cubic-bezier(.2,.75,.25,1) backwards;
+  }
+
+  .hero-name { animation-delay: 35ms; }
+  .hero-role { animation-delay: 70ms; }
+  .hero-description { animation-delay: 100ms; }
+  .hero-actions { animation-delay: 130ms; }
+  .hero > .identity-card { animation-delay: 90ms; }
+
+  .hero-kicker > span, .section-label.in-view > span {
+    transform-origin: left center;
+    animation: accent-draw 420ms cubic-bezier(.2,.75,.25,1) backwards;
+  }
+
+  .button:active, .nav-github:active, .theme-btn:active, .menu-btn:active {
+    transform: translateY(1px) scale(.98);
+  }
+
+  .nav-github, .theme-btn, .menu-btn {
+    transition: color 160ms, border-color 160ms, transform 140ms;
+  }
+
+  /* Keep the native disclosure and keyboard interaction across browsers. */
+  @supports selector(details::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    .project-deepdive { interpolate-size: allow-keywords; }
+
+    .project-deepdive::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 260ms cubic-bezier(.25,.75,.3,1),
+                  content-visibility 260ms allow-discrete;
+    }
+
+    .project-deepdive[open]::details-content { block-size: auto; }
+  }
+}
+
+@media screen and (min-width: 881px) and (prefers-reduced-motion: no-preference) {
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 180ms cubic-bezier(.2,.75,.25,1);
+  }
+
+  .site-nav a:is(:hover, :focus-visible, .active)::after { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover, .skill-card:hover { transform: none; }
+}
