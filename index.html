@@ -40,29 +40,8 @@
     <div class="identity-card" aria-label="个人技术档案">
       <div class="editor-head">
         <div class="editor-title"><span class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="editor-file">profile.json</span></div>
-        <div class="trace-tabs" role="tablist" aria-label="技术档案视图" hidden>
-          <button type="button" role="tab" id="trace-tab" aria-controls="trace-pane" aria-selected="true">链路演示</button>
-          <button type="button" role="tab" id="profile-tab" aria-controls="profile-pane" aria-selected="false" tabindex="-1">profile.json</button>
-        </div>
         <span class="editor-language">JSON</span>
       </div>
-      <div id="trace-pane" class="trace-pane" role="tabpanel" aria-labelledby="trace-tab" hidden>
-        <div class="trace-heading">
-          <div><p>FINTORQ / 模拟请求</p><h2>汽车金融报价链路</h2></div>
-          <button class="trace-run" type="button"><span aria-hidden="true">▶</span> 运行一次</button>
-        </div>
-        <div class="trace-map" role="img" aria-label="贷款申请经过动态问答，再分别适配两家模拟机构，最后汇总报价">
-          <canvas aria-hidden="true"></canvas>
-          <span class="trace-node" data-node="entry" style="--x:11%;--y:48%"><i aria-hidden="true">＋</i><b>贷款申请</b></span>
-          <span class="trace-node trace-hub" data-node="model" style="--x:36%;--y:48%"><i aria-hidden="true">{ }</i><b>动态问答</b></span>
-          <span class="trace-node" data-node="a" style="--x:65%;--y:23%"><i aria-hidden="true">A</i><b>机构 A</b></span>
-          <span class="trace-node" data-node="b" style="--x:65%;--y:73%"><i aria-hidden="true">B</i><b>机构 B</b></span>
-          <span class="trace-node" data-node="quote" style="--x:89%;--y:48%"><i aria-hidden="true">≡</i><b>报价汇总</b></span>
-        </div>
-        <div class="trace-readout"><div class="trace-meter" aria-hidden="true"><i></i></div><p class="trace-message">就绪 · 可以运行一笔模拟申请</p></div>
-        <span class="trace-announcement" role="status"></span>
-      </div>
-      <div id="profile-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
       <div class="identity-code" aria-label="个人技术档案 JSON">
         <div class="code-line"><span class="code-n">01</span><code>{</code></div>
         <div class="code-line"><span class="code-n">02</span><code>  <span class="code-key">"name"</span>: <span class="code-string">"SEN"</span>,</code></div>
@@ -76,7 +55,6 @@
         <div class="code-line"><span class="code-n">10</span><code>}</code></div>
       </div>
       <div class="editor-workflow"><div class="editor-workflow-label">ENGINEERING WORKFLOW <span>研发闭环</span></div><div class="mini-flow"><span>Domain</span><i></i><span class="mini-active">Backend</span><i></i><span>AI Agent</span><i></i><span>Quality</span></div></div>
-      </div>
       <div class="editor-foot"><span>Java · Full-stack · AI</span><span>UTF-8</span></div>
     </div>
   </section>
@@ -139,6 +117,22 @@
       <div class="project-info"><div class="project-eyebrow"><span class="project-category">汽车金融 · SaaS</span><span>2025.06 — 至今</span></div><h3>Fintorq 汽车金融服务平台</h3><p class="project-role">Java 后端开发 / AI Coding 全栈开发</p><p class="project-summary">面向澳洲汽车金融业务，连接客户、经销商、Broker、运营人员与多个金融机构，覆盖动态问答、报价申请、资料管理与 CRM 运营。</p>
         <div class="project-highlights"><div><strong>动态问答体系</strong><span>从 0 到 1 构建配置化动态问答内核，支持多机构、多问卷版本及中断恢复。</span></div><div><strong>多机构集成</strong><span>抽象统一领域模型与 Provider Adapter，隔离不同机构的规则及流程差异。</span></div><div><strong>核心模块与授权</strong><span>交付 B/C 端核心业务与 CRM 权限体系，治理行级、操作及字段可见性。</span></div><div><strong>全栈与质量闭环</strong><span>以 Java 为核心，借助 AI 完成 React、单元、集成与 E2E 测试，负责审查与联调。</span></div></div>
       </div>
+      <section class="trace-pane" id="fintorq-trace" aria-labelledby="fintorq-trace-heading" hidden>
+        <div class="trace-heading">
+          <p>模拟请求</p>
+          <h4 id="fintorq-trace-heading">汽车金融报价链路</h4>
+          <button class="trace-run" type="button" aria-controls="fintorq-trace-map">暂停演示</button>
+        </div>
+        <div class="trace-map" id="fintorq-trace-map" role="img" aria-label="贷款申请经过动态问答，再分别适配两家模拟机构，最后汇总报价">
+          <canvas aria-hidden="true"></canvas>
+          <span class="trace-node" data-node="entry" style="--x:11%;--y:48%"><i aria-hidden="true">＋</i><b>贷款申请</b></span>
+          <span class="trace-node trace-hub" data-node="model" style="--x:36%;--y:48%"><i aria-hidden="true">{ }</i><b>动态问答</b></span>
+          <span class="trace-node" data-node="a" style="--x:65%;--y:23%"><i aria-hidden="true">A</i><b>机构 A</b></span>
+          <span class="trace-node" data-node="b" style="--x:65%;--y:73%"><i aria-hidden="true">B</i><b>机构 B</b></span>
+          <span class="trace-node" data-node="quote" style="--x:89%;--y:48%"><i aria-hidden="true">≡</i><b>报价汇总</b></span>
+        </div>
+        <div class="trace-readout"><div class="trace-meter" aria-hidden="true"><i></i></div><p class="trace-message">等待演示</p></div>
+      </section>
       <details class="project-deepdive">
         <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>9 项主要职责</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
         <div class="deepdive-body">

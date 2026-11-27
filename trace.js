@@ -1,20 +1,19 @@
 (() => {
   "use strict";
 
-  const card = document.querySelector(".identity-card");
-  const diagram = document.getElementById("trace-pane");
-  const profile = document.getElementById("profile-pane");
+  const diagram = document.getElementById("fintorq-trace");
+  if (!diagram) return;
   const map = diagram.querySelector(".trace-map");
   const canvas = map.querySelector("canvas");
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const tabs = [...card.querySelectorAll('[role="tab"]')];
+  const button = diagram.querySelector(".trace-run");
   const nodes = [...map.querySelectorAll(".trace-node")];
   const message = diagram.querySelector(".trace-message");
-  const announce = diagram.querySelector(".trace-announcement");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const duration = 3800;
+  const cycleDuration = duration + 1600;
   const routes = [
     ["entry", "model", .04, .30],
     ["model", "a", .30, .56],
@@ -27,8 +26,11 @@
   let colors;
   let progress = 0;
   let frame = 0;
-  let started = false;
-  let manual = false;
+  let holdTimer = 0;
+  let cycleStart = null;
+  let elapsed = 0;
+  let visible = false;
+  let paused = false;
 
   function measure() {
     const width = map.clientWidth;
@@ -49,7 +51,7 @@
       });
       return { samples, start, end };
     });
-    const style = getComputedStyle(card);
+    const style = getComputedStyle(diagram);
     colors = { wire: style.getPropertyValue("--muted-2").trim(), pulse: style.getPropertyValue("--accent").trim() };
     draw();
   }
@@ -103,72 +105,63 @@
     if (message.textContent !== text) message.textContent = text;
   }
 
-  function finish() {
-    cancelAnimationFrame(frame);
-    frame = 0;
-    progress = 1;
+  function tick() {
+    const now = performance.now();
+    elapsed = (now - cycleStart) % cycleDuration;
+    progress = Math.min(1, elapsed / duration);
     draw();
     updateStage();
-    if (manual) announce.textContent = message.textContent;
+    if (elapsed < duration) {
+      frame = requestAnimationFrame(tick);
+    } else {
+      // Keep the result on screen without drawing while the diagram is still.
+      holdTimer = window.setTimeout(tick, Math.ceil(cycleDuration - elapsed));
+    }
   }
 
-  function run(byUser) {
-    cancelAnimationFrame(frame);
-    started = true;
-    manual = byUser;
-    announce.textContent = "";
-    if (reduced.matches) { finish(); return; }
-    const start = performance.now();
-    function tick(now) {
-      progress = Math.min(1, (now - start) / duration);
-      if (progress >= 1) { finish(); return; }
+  function syncPlayback() {
+    const shouldPlay = visible && !document.hidden && !reduced.matches && !paused;
+    if (shouldPlay && cycleStart === null) {
+      cycleStart = performance.now() - elapsed;
+      tick();
+    } else if (!shouldPlay && cycleStart !== null) {
+      elapsed = (performance.now() - cycleStart) % cycleDuration;
+      cycleStart = null;
+      cancelAnimationFrame(frame);
+      clearTimeout(holdTimer);
+    }
+  }
+
+  function applyMotionPreference() {
+    button.hidden = reduced.matches;
+    syncPlayback();
+    if (reduced.matches) {
+      elapsed = 0;
+      progress = 1;
       draw();
       updateStage();
-      frame = requestAnimationFrame(tick);
     }
-    tick(start);
   }
 
-  function select(tab) {
-    const showDiagram = tab.id === "trace-tab";
-    for (const item of tabs) {
-      item.setAttribute("aria-selected", String(item === tab));
-      item.tabIndex = item === tab ? 0 : -1;
-    }
-    diagram.hidden = !showDiagram;
-    diagram.inert = !showDiagram;
-    profile.hidden = showDiagram;
-    profile.inert = showDiagram;
-    card.querySelector(".editor-language").textContent = showDiagram ? "TRACE" : "JSON";
-    if (!showDiagram && frame) finish();
-    if (showDiagram) measure();
-  }
-
-  card.classList.add("trace-ready");
-  card.querySelector(".trace-tabs").hidden = false;
-  select(tabs[0]);
-  for (const tab of tabs) {
-    tab.addEventListener("click", () => select(tab));
-    tab.addEventListener("keydown", e => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
-      e.preventDefault();
-      let next = tabs.find(item => item !== tab);
-      if (e.key === "Home") next = tabs[0];
-      if (e.key === "End") next = tabs[1];
-      select(next);
-      next.focus();
-    });
-  }
-  diagram.querySelector(".trace-run").addEventListener("click", () => run(true));
+  button.addEventListener("click", () => {
+    paused = !paused;
+    button.textContent = paused ? "继续播放" : "暂停演示";
+    syncPlayback();
+  });
+  diagram.hidden = false;
+  measure();
   new MutationObserver(measure).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   if ("ResizeObserver" in window) new ResizeObserver(measure).observe(map);
   else window.addEventListener("resize", measure);
-  reduced.addEventListener("change", () => { if (frame && reduced.matches) finish(); });
-  document.addEventListener("visibilitychange", () => { if (document.hidden && frame) finish(); });
+  document.addEventListener("visibilitychange", syncPlayback);
+  reduced.addEventListener("change", applyMotionPreference);
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !diagram.hidden && !document.hidden && !started && !reduced.matches) run(false);
-      if (!entry.isIntersecting && frame) finish();
-    }, { threshold: .55 }).observe(map);
+      visible = entry.intersectionRatio >= .3;
+      syncPlayback();
+    }, { threshold: [0, .3] }).observe(map);
+  } else {
+    visible = true;
   }
+  applyMotionPreference();
 })();
