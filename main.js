@@ -80,3 +80,83 @@ if ("IntersectionObserver" in window) {
   });
   document.querySelectorAll(".motion-surface").forEach(surface => motionObserver.observe(surface));
 }
+
+const detailMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+function setUpProjectDetails(details) {
+  const chips = details.querySelectorAll(".project-stack .stack-tags > span");
+  const cards = details.querySelectorAll(".responsibility-list > li");
+  chips.forEach((chip, index) => chip.style.setProperty("--slot", Math.min(index + 1, 7)));
+
+  // Reveal cards as they reach the reader, including the ones several screens down.
+  if ("IntersectionObserver" in window && Element.prototype.animate) {
+    const observer = new IntersectionObserver(entries => {
+      let order = 0;
+      for (const { target, isIntersecting } of entries) {
+        if (!isIntersecting || !details.open) continue;
+        observer.unobserve(target);
+        if (detailMotion.matches) continue;
+        target.animate(
+          [{ opacity: .55, transform: "translateY(9px)" }, { opacity: 1, transform: "translateY(0)" }],
+          { duration: 320, delay: Math.min(order++, 3) * 45, easing: "cubic-bezier(.2,.78,.24,1)", fill: "backwards" }
+        );
+      }
+    });
+    const watchCards = () => {
+      observer.disconnect();
+      if (details.open) cards.forEach(card => observer.observe(card));
+    };
+    details.addEventListener("toggle", watchCards);
+    watchCards();
+  }
+
+  const targetSelector = ".project-stack .stack-tags > span, .responsibility-list > li";
+  let active = null;
+  let frame = 0;
+  let releaseTimer = 0;
+  let x = 0;
+  let y = 0;
+
+  function clearLight() {
+    clearTimeout(releaseTimer);
+    cancelAnimationFrame(frame);
+    frame = 0;
+    if (active) active.removeAttribute("data-lit");
+    active = null;
+  }
+  function placeLight() {
+    frame = 0;
+    const box = active.getBoundingClientRect();
+    active.style.setProperty("--light-x", (x - box.left) + "px");
+    active.style.setProperty("--light-y", (y - box.top) + "px");
+  }
+  function lightAt(event) {
+    const next = event.target.closest(targetSelector);
+    if (next !== active) {
+      clearLight();
+      active = next;
+      if (active) active.setAttribute("data-lit", "");
+    }
+    if (!active || active.tagName !== "LI" || detailMotion.matches) return;
+    x = event.clientX;
+    y = event.clientY;
+    if (!frame) frame = requestAnimationFrame(placeLight);
+  }
+  details.addEventListener("pointermove", event => {
+    if (event.pointerType !== "touch") lightAt(event);
+  }, { passive: true });
+  details.addEventListener("pointerdown", lightAt, { passive: true });
+  details.addEventListener("pointerup", event => {
+    if (event.pointerType !== "mouse") {
+      clearTimeout(releaseTimer);
+      releaseTimer = setTimeout(clearLight, 300);
+    }
+  }, { passive: true });
+  details.addEventListener("pointerleave", event => {
+    if (event.pointerType !== "touch") clearLight();
+  });
+  details.addEventListener("pointercancel", clearLight);
+  details.addEventListener("toggle", () => { if (!details.open) clearLight(); });
+}
+
+document.querySelectorAll(".project-deepdive").forEach(setUpProjectDetails);
