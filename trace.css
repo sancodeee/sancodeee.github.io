@@ -38,17 +38,20 @@
 }
 .trace-meter {
   --car-width: 36px;
-  position: relative; height: 2px; margin-inline: var(--car-width) 1px;
+  /* The painted bumper is at x=39.05 in the 40-unit SVG. */
+  --bumper-offset: calc(var(--car-width) * .97625);
+  height: 2px; margin-inline-end: 1px;
   background: var(--line); border-radius: 1px;
 }
+.trace-meter i {
+  display: block; height: 100%; position: relative; background: var(--accent);
+  width: calc(var(--bumper-offset) + (100% - var(--bumper-offset)) * var(--progress, 0));
+}
 .trace-car {
-  position: absolute; bottom: 1px; left: calc(var(--progress, 0) * 100%);
-  width: var(--car-width); height: auto;
-  /* The painted front bumper is at x=39.05 in the 40-unit SVG. */
-  transform: translateX(-97.625%);
+  position: absolute; bottom: 1px; left: 100%;
+  width: var(--car-width); height: auto; transform: translateX(calc(0px - var(--bumper-offset)));
   color: var(--accent); pointer-events: none;
 }
-.trace-meter i { display: block; height: 100%; background: var(--accent); transform: scaleX(var(--progress, 0)); transform-origin: left; }
 .trace-message { min-height: 1.6em; margin: 10px 0 0; color: var(--muted); font: 500 14px/1.6 var(--font); }
 @media (max-width: 700px) {
   .trace-pane { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "map" "readout"; gap: 12px; }
