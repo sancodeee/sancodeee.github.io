@@ -121,7 +121,6 @@
         <div class="trace-heading">
           <p>模拟请求</p>
           <h4 id="fintorq-trace-heading">汽车金融报价链路</h4>
-          <button class="trace-run" type="button" aria-controls="fintorq-trace-map">暂停演示</button>
         </div>
         <div class="trace-map" id="fintorq-trace-map" role="img" aria-label="贷款申请经过动态问答，再分别适配两家模拟机构，最后汇总报价">
           <canvas aria-hidden="true"></canvas>
@@ -226,9 +225,22 @@
       </details>
     </article>
     <article class="project-card reverse">
-      <div class="project-visual marketing-visual"><div class="visual-grid"></div><div class="visual-caption"><span>MARKETING SAAS</span><span>WORKFLOW ENGINE</span></div>
-        <div class="marketing-icon" aria-hidden="true"><div class="workflow-branch"><span>01</span><i></i><span class="workflow-active">02</span><i></i><span>03</span></div><div class="workflow-path"></div><div class="workflow-sub"><span></span><span></span></div></div>
-        <div class="marketing-title">流程驱动的<br>营销协作</div><div class="visual-foot"><span>Microservices</span><span>Workflow</span><span>Automation</span></div>
+      <div class="project-visual marketing-visual" id="marketing-workflow">
+        <div class="visual-grid"></div>
+        <div class="visual-caption"><span>MARKETING SAAS</span><span>FLOWABLE</span></div>
+        <div class="marketing-title">流程驱动的<br>营销协作</div>
+        <figure class="approval-figure">
+          <figcaption>合作审批示例</figcaption>
+          <div class="trace-map approval-map" role="img" aria-label="合作申请提交审核。退回后补充资料并重新提交，复核通过后开始执行合作">
+            <canvas aria-hidden="true"></canvas>
+            <span class="trace-node" data-node="submit" style="--x:15%;--y:31%"><b>提交申请</b></span>
+            <span class="trace-node" data-node="review" style="--x:50%;--y:31%"><b>审核</b></span>
+            <span class="trace-node" data-node="approved" style="--x:85%;--y:31%"><b>通过</b></span>
+            <span class="trace-node revision-node" data-node="revise" style="--x:50%;--y:76%"><b>退回修改</b></span>
+          </div>
+          <p class="trace-message">提交申请，等待审核</p>
+        </figure>
+        <div class="visual-foot"><span>Microservices</span><span>Workflow</span><span>Automation</span></div>
       </div>
       <div class="project-info"><div class="project-eyebrow"><span class="project-category">企业 SaaS · 微服务</span><span>2024.01 — 2025.05</span></div><h3>达人营销平台</h3><p class="project-role">Java 服务端开发</p><p class="project-summary">为广告客户与媒体达人提供线上匹配和合作流程管理，支持审批流、广告推广及直播加速等业务协同。</p>
         <div class="project-highlights"><div><strong>流程引擎服务</strong><span>独立搭建 Activiti 流程引擎服务，封装流程能力供各业务服务统一调用。</span></div><div><strong>微服务及业务研发</strong><span>参与服务拆分与公共组件建设，负责客户中心、达人广场和订单等核心模块。</span></div><div><strong>工程与性能治理</strong><span>建设注解式接口限流、操作日志及安全校验，结合异步消息和 SQL 优化治理性能。</span></div><div><strong>自动化交付</strong><span>编写和优化 Jenkins Pipeline，支持 Docker 与 Kubernetes 容器化发布。</span></div></div>
@@ -236,7 +248,7 @@
       <details class="project-deepdive">
         <summary><span class="deepdive-title"><strong>详细职责与技术实践</strong><small>5 项主要职责</small></span><i class="deepdive-toggle" aria-hidden="true"></i></summary>
         <div class="deepdive-body">
-          <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Cloud Alibaba</span><span>Spring Boot 3</span><span>Nacos</span><span>OpenFeign</span><span>Redis</span><span>MySQL 8</span><span>Activiti 7</span><span>RabbitMQ</span><span>Guava</span><span>Jenkins</span><span>Docker</span><span>Kubernetes</span></div></div>
+          <div class="project-stack"><h4>项目技术栈</h4><div class='stack-tags'><span>Java 17</span><span>Spring Cloud Alibaba</span><span>Spring Boot 3</span><span>Nacos</span><span>OpenFeign</span><span>Redis</span><span>MySQL 8</span><span>Activiti 7</span><span>Flowable</span><span>RabbitMQ</span><span>Guava</span><span>Jenkins</span><span>Docker</span><span>Kubernetes</span></div></div>
           <ol class="responsibility-list" role="list">
             <li>
               <h4><span aria-hidden="true">01</span>流程引擎服务搭建</h4>
