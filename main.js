@@ -112,40 +112,24 @@ function setUpProjectDetails(details) {
 
   const targetSelector = ".project-stack .stack-tags > span, .responsibility-list > li";
   let active = null;
-  let frame = 0;
   let releaseTimer = 0;
-  let x = 0;
-  let y = 0;
 
   function clearLight() {
     clearTimeout(releaseTimer);
-    cancelAnimationFrame(frame);
-    frame = 0;
-    if (active) active.removeAttribute("data-lit");
+    active?.removeAttribute("data-lit");
     active = null;
   }
-  function placeLight() {
-    frame = 0;
-    const box = active.getBoundingClientRect();
-    active.style.setProperty("--light-x", (x - box.left) + "px");
-    active.style.setProperty("--light-y", (y - box.top) + "px");
-  }
-  function lightAt(event) {
+  function highlightTarget(event) {
     const next = event.target.closest(targetSelector);
-    if (next !== active) {
-      clearLight();
-      active = next;
-      if (active) active.setAttribute("data-lit", "");
-    }
-    if (!active || active.tagName !== "LI" || detailMotion.matches) return;
-    x = event.clientX;
-    y = event.clientY;
-    if (!frame) frame = requestAnimationFrame(placeLight);
+    if (next === active) return;
+    clearLight();
+    active = next;
+    active?.setAttribute("data-lit", "");
   }
-  details.addEventListener("pointermove", event => {
-    if (event.pointerType !== "touch") lightAt(event);
+  details.addEventListener("pointerover", event => {
+    if (event.pointerType !== "touch") highlightTarget(event);
   }, { passive: true });
-  details.addEventListener("pointerdown", lightAt, { passive: true });
+  details.addEventListener("pointerdown", highlightTarget, { passive: true });
   details.addEventListener("pointerup", event => {
     if (event.pointerType !== "mouse") {
       clearTimeout(releaseTimer);

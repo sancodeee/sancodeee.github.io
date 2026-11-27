@@ -313,18 +313,12 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
   background: linear-gradient(108deg, transparent 20%, color-mix(in srgb, var(--accent) 22%, transparent) 50%, transparent 80%);
   transform: translateX(-100%);
 }
-.responsibility-list > li::before {
-  content: ""; z-index: -1; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(240px circle at var(--light-x, 22%) var(--light-y, 24%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 90%);
-  opacity: 0;
-}
 .responsibility-list > li::after {
   content: ""; position: absolute; left: -1px; top: 16px; width: 2px; height: 28px; border-radius: 2px;
   pointer-events: none; background: var(--accent); opacity: 0; transform: scaleY(.3); transform-origin: top;
 }
 .responsibility-list > li[data-lit] { border-color: color-mix(in srgb, var(--accent) 38%, var(--line)); }
-.responsibility-list > li[data-lit]::before, .responsibility-list > li[data-lit]::after { opacity: 1; }
-.responsibility-list > li[data-lit]::after { transform: scaleY(1); }
+.responsibility-list > li[data-lit]::after { opacity: 1; transform: scaleY(1); }
 .responsibility-list > li[data-lit] h4 span { border-color: color-mix(in srgb, var(--accent) 50%, var(--soft-line)); }
 .project-stack .stack-tags > span[data-lit] {
   color: var(--accent); background: var(--soft); border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
@@ -342,7 +336,7 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
   .responsibility-list > li, .project-stack .stack-tags > span {
     transition: translate 160ms ease-out, border-color 160ms, background-color 160ms, color 160ms;
   }
-  .responsibility-list > li::before, .responsibility-list > li::after { transition: opacity 180ms ease, transform 190ms ease; }
+  .responsibility-list > li::after { transition: opacity 180ms ease, transform 190ms ease; }
   .project-stack .stack-tags > span[data-lit]::after { animation: chip-glint 440ms ease-out; }
   @media (hover: hover) and (pointer: fine) {
     .project-stack .stack-tags > span[data-lit] { translate: 0 -2px; }
@@ -435,7 +429,7 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
     z-index: 60;
     top: 0;
     left: 0;
-    width: min(440px, 82vmin);
+    width: min(300px, 60vmin);
     aspect-ratio: 1;
     margin: 0;
     pointer-events: none;
@@ -449,7 +443,5 @@ html[data-theme=light]{color-scheme:light;--bg:#f5f7f2;--section:#edf2eb;--panel
     background: radial-gradient(circle closest-side, rgb(76 135 56 / 10%), rgb(100 156 70 / 4%) 46%, transparent 100%);
   }
   .pointer-glow.is-visible { opacity: 1; }
-  /* The card already supplies a stronger, clipped highlight under the pointer. */
-  body:has(.responsibility-list > li[data-lit]) > .pointer-glow.is-visible { opacity: .35; }
 }
 @media (forced-colors: active) { .pointer-glow { display: none; } }
