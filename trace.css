@@ -10,7 +10,7 @@
 .trace-heading { grid-area: heading; align-self: end; }
 .trace-heading h4 { margin: 0; font: 660 clamp(18px, 2vw, 25px)/1.35 var(--font); color: var(--ink); }
 .trace-map { grid-area: map; }
-.trace-readout { grid-area: readout; align-self: start; }
+.trace-readout { grid-area: readout; align-self: start; padding-top: 20px; }
 .trace-map {
   position: relative; isolation: isolate; min-width: 0; height: clamp(186px, 16vw, 216px);
   border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
@@ -36,7 +36,15 @@
   color: var(--accent); border-color: var(--accent); background: var(--soft);
   box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 24%, transparent);
 }
-.trace-meter { height: 2px; background: var(--line); }
+.trace-meter {
+  position: relative; height: 2px; margin-inline: 18px;
+  background: var(--line); border-radius: 1px;
+}
+.trace-car {
+  position: absolute; bottom: 1px; left: calc(var(--progress, 0) * 100%);
+  width: 36px; height: 18px; transform: translateX(-50%);
+  color: var(--accent); pointer-events: none;
+}
 .trace-meter i { display: block; height: 100%; background: var(--accent); transform: scaleX(var(--progress, 0)); transform-origin: left; }
 .trace-message { min-height: 1.6em; margin: 10px 0 0; color: var(--muted); font: 500 14px/1.6 var(--font); }
 @media (max-width: 700px) {
